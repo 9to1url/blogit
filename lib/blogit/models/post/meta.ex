@@ -129,7 +129,7 @@ defmodule Blogit.Models.Post.Meta do
     updated_at = data["updated_at"]
     author = data["author"]
     {created_at_from_provider, updated_at_from_provider, author_from_provider} =
-      if is_nil(created_at) || is_nil(updated_at) || is_nil(author) do
+      if is_nil(created_at) || is_nil(author) do
         Logger.info("Get meta from REPO using git log: " <> file_path)
         file_info = repository.provider.file_info(repository.repo, path)
         {
@@ -142,7 +142,7 @@ defmodule Blogit.Models.Post.Meta do
       end
 
     created_at = created_at || created_at_from_provider
-    updated_at = updated_at || updated_at_from_provider
+    updated_at = updated_at || updated_at_from_provider || created_at
     author = author || author_from_provider
 
 
